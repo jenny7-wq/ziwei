@@ -65,6 +65,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
   <div class="tab active" onclick="switchTab('input',this)">📝 填資料</div>
   <div class="tab" onclick="switchTab('stars',this)">⭐ 主星速查</div>
   <div class="tab" onclick="switchTab('jobs',this)">💼 缺工職業</div>
+  <div class="tab" onclick="switchTab('future',this)">🔮 未來展望</div>
   <div class="tab" onclick="switchTab('how',this)">❓ 說明</div>
 </div>
 
@@ -225,6 +226,52 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);bo
     <div class="card-title">👨 適合男性（25-50歲・不需學歷）</div>
     <div class="job-tags" style="margin-bottom:8px"><span class="job-tag">業務員</span><span class="job-tag">水電工</span><span class="job-tag">科技廠技術員</span><span class="job-tag">房仲</span><span class="job-tag">外送員</span><span class="job-tag">餐飲創業</span></div>
     <div class="tip-card">台灣技術人才嚴重不足，有一技之長比學歷更值錢！</div>
+  </div>
+</div>
+
+<div class="section" id="tab-future">
+  <div class="card">
+    <div class="card-title">🔮 職業未來展望・缺工率・學習推薦</div>
+    <div class="job-section">
+      <div class="job-section-title">🚀 高成長・AI時代更搶手</div>
+      <table class="star-table">
+        <tr><th>職業</th><th>缺工率</th><th>5年展望</th><th>推薦學習</th></tr>
+        <tr><td><strong>AI/數據分析</strong></td><td style="color:#8b1a1a;font-weight:700">★★★★★</td><td>💹 持續暴漲</td><td>Coursera免費課</td></tr>
+        <tr><td><strong>資安工程師</strong></td><td style="color:#8b1a1a;font-weight:700">★★★★★</td><td>💹 10年都缺</td><td>CEH證照、政府資安課</td></tr>
+        <tr><td><strong>半導體技術員</strong></td><td style="color:#8b1a1a;font-weight:700">★★★★★</td><td>💹 護國神山</td><td>工業局課程（免費）</td></tr>
+        <tr><td><strong>護理師</strong></td><td style="color:#8b1a1a;font-weight:700">★★★★★</td><td>💹 高齡化爆增</td><td>護理學校、二技專班</td></tr>
+        <tr><td><strong>照服員/長照</strong></td><td style="color:#8b1a1a;font-weight:700">★★★★★</td><td>💹 未來20年剛需</td><td>90小時訓練（補助）</td></tr>
+      </table>
+    </div>
+    <div class="job-section">
+      <div class="job-section-title">✅ 穩定・不怕被AI取代</div>
+      <table class="star-table">
+        <tr><th>職業</th><th>缺工率</th><th>5年展望</th><th>推薦學習</th></tr>
+        <tr><td><strong>水電工</strong></td><td style="color:#c9922a;font-weight:700">★★★★☆</td><td>🔒 AI無法取代</td><td>乙級水電技術士</td></tr>
+        <tr><td><strong>冷凍空調</strong></td><td style="color:#c9922a;font-weight:700">★★★★☆</td><td>🔒 氣候暖化需求增</td><td>冷凍空調技術士</td></tr>
+        <tr><td><strong>廚師</strong></td><td style="color:#c9922a;font-weight:700">★★★★☆</td><td>🔒 人情味難取代</td><td>中餐烹調技術士</td></tr>
+        <tr><td><strong>房仲</strong></td><td style="color:#c9922a;font-weight:700">★★★☆☆</td><td>🔒 人際信任難取代</td><td>不動產經紀人考照</td></tr>
+        <tr><td><strong>保險業務</strong></td><td style="color:#c9922a;font-weight:700">★★★☆☆</td><td>🔒 情感連結難取代</td><td>產險/壽險資格考</td></tr>
+      </table>
+    </div>
+    <div class="job-section">
+      <div class="job-section-title">⚠️ 注意・未來可能被AI影響</div>
+      <table class="star-table">
+        <tr><th>職業</th><th>AI風險</th><th>建議</th></tr>
+        <tr><td><strong>一般客服</strong></td><td>🤖 高風險</td><td>轉往專業客服、情緒支援</td></tr>
+        <tr><td><strong>收銀員/門市</strong></td><td>🤖 中高風險</td><td>學管理、往主管發展</td></tr>
+        <tr><td><strong>一般行政</strong></td><td>🤖 中風險</td><td>加強AI工具能力</td></tr>
+        <tr><td><strong>外送員</strong></td><td>🤖 長期風險</td><td>過渡期間學其他技能</td></tr>
+      </table>
+    </div>
+    <div style="background:rgba(44,74,30,0.08);border-left:3px solid #2c4a1e;padding:12px 14px;border-radius:0 4px 4px 0;font-size:12px;line-height:2;color:#1a2e12">
+      <div><strong>📚 台灣免費學習資源</strong></div>
+      <div>🏛️ 勞動部數位學習網 — 免費線上課程數百門</div>
+      <div>🏛️ 職訓局免費課程 — 可領訓練津貼（月薪60%）</div>
+      <div>🏛️ 104學習精靈 — 免費職涯課程</div>
+      <div>🏛️ Coursera/edX — 全球頂大免費旁聽</div>
+      <div style="margin-top:8px;padding:8px;background:rgba(201,146,42,0.15);border-radius:4px">💡 45歲以上可申請壯世代就業獎勵最高6萬元！</div>
+    </div>
   </div>
 </div>
 
