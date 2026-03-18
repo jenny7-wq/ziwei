@@ -6,376 +6,69 @@
 <title>紫微算命師・提詞工具</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=Ma+Shan+Zheng&display=swap');
-
-:root {
-  --ink: #1a0a00;
-  --gold: #c9922a;
-  --gold-light: #e8b84b;
-  --red: #8b1a1a;
-  --cream: #fdf6e3;
-  --paper: #f5ead0;
-  --accent: #2c4a1e;
-  --card: rgba(253,246,227,0.98);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-body {
-  background: #1a0a00;
-  font-family: 'Noto Serif TC', serif;
-  min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.2) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(201,146,42,0.12) 0%, transparent 50%);
-}
-
-header {
-  text-align: center;
-  padding: 20px 16px 14px;
-  border-bottom: 1px solid rgba(201,146,42,0.3);
-}
-
-.header-title {
-  font-family: 'Ma Shan Zheng', serif;
-  font-size: 24px;
-  color: var(--gold-light);
-  letter-spacing: 4px;
-  text-shadow: 0 0 20px rgba(201,146,42,0.5);
-}
-
-.header-sub {
-  font-size: 10px;
-  color: rgba(201,146,42,0.5);
-  letter-spacing: 3px;
-  margin-top: 4px;
-}
-
-/* TABS */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid rgba(201,146,42,0.2);
-  background: rgba(0,0,0,0.3);
-}
-
-.tab {
-  flex: 1;
-  padding: 12px 4px;
-  text-align: center;
-  font-size: 12px;
-  color: rgba(201,146,42,0.5);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  letter-spacing: 1px;
-}
-
-.tab.active {
-  color: var(--gold-light);
-  border-bottom-color: var(--gold);
-  background: rgba(201,146,42,0.08);
-}
-
-/* SECTIONS */
-.section { display: none; padding: 16px; }
-.section.active { display: block; }
-
-/* CARDS */
-.card {
-  background: var(--card);
-  border: 1px solid rgba(201,146,42,0.35);
-  border-radius: 6px;
-  padding: 14px;
-  margin-bottom: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
-}
-
-.card-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 3px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.card-title::before {
-  content: '';
-  display: block;
-  width: 3px;
-  height: 13px;
-  background: var(--gold);
-  border-radius: 2px;
-}
-
-label {
-  display: block;
-  font-size: 11px;
-  color: #7a5520;
-  margin-bottom: 4px;
-  letter-spacing: 1px;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 10px 12px;
-  background: rgba(255,255,255,0.8);
-  border: 1px solid rgba(201,146,42,0.3);
-  border-radius: 4px;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 14px;
-  color: var(--ink);
-  margin-bottom: 10px;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: none;
-  border-color: var(--gold);
-  box-shadow: 0 0 0 2px rgba(201,146,42,0.15);
-}
-
-.gender-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-
-.gender-btn {
-  padding: 10px;
-  border: 1px solid rgba(201,146,42,0.3);
-  background: rgba(255,255,255,0.5);
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 14px;
-  color: #6b4c1e;
-  text-align: center;
-  transition: all 0.2s;
-}
-
-.gender-btn.active {
-  background: var(--gold);
-  color: white;
-  border-color: var(--gold);
-  font-weight: 700;
-}
-
-.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-
-.chip {
-  padding: 6px 12px;
-  border: 1px solid rgba(201,146,42,0.3);
-  background: rgba(255,255,255,0.4);
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 12px;
-  color: #5a3e1b;
-  transition: all 0.2s;
-}
-
-.chip.selected {
-  background: var(--red);
-  color: var(--cream);
-  border-color: var(--red);
-  font-weight: 600;
-}
-
-.chip.green.selected {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-/* GENERATE BUTTON */
-.btn-gen {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, var(--red), #6b1010);
-  color: var(--gold-light);
-  border: 1px solid rgba(201,146,42,0.4);
-  border-radius: 6px;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(139,26,26,0.4);
-  margin-bottom: 12px;
-}
-
-/* RESULT BOX */
-.result-box {
-  background: var(--card);
-  border: 1px solid rgba(201,146,42,0.35);
-  border-radius: 6px;
-  padding: 16px;
-  margin-bottom: 12px;
-  display: none;
-}
-
-.result-box.show { display: block; }
-
-.result-text {
-  font-size: 13px;
-  line-height: 1.9;
-  color: #2a1800;
-  white-space: pre-wrap;
-  margin-bottom: 12px;
-  border: 1px dashed rgba(201,146,42,0.3);
-  padding: 12px;
-  border-radius: 4px;
-  background: rgba(255,255,255,0.5);
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-.btn-copy {
-  padding: 12px;
-  background: var(--accent);
-  color: var(--cream);
-  border: none;
-  border-radius: 4px;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.btn-claude {
-  padding: 12px;
-  background: linear-gradient(135deg, #c9522a, #8b3010);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-family: 'Noto Serif TC', serif;
-  font-size: 13px;
-  cursor: pointer;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-decoration: none;
-  text-align: center;
-  display: block;
-}
-
-.copied-msg {
-  text-align: center;
-  color: var(--accent);
-  font-size: 12px;
-  margin-top: 8px;
-  display: none;
-}
-
-/* REFERENCE TABLES */
-.star-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.star-table th {
-  background: rgba(201,146,42,0.15);
-  color: var(--gold);
-  padding: 8px 6px;
-  text-align: left;
-  font-size: 11px;
-  letter-spacing: 1px;
-}
-.star-table td {
-  padding: 8px 6px;
-  border-bottom: 1px solid rgba(201,146,42,0.12);
-  color: #2a1800;
-  vertical-align: top;
-  line-height: 1.6;
-}
-.star-table tr:nth-child(even) td { background: rgba(201,146,42,0.04); }
-
-.job-section { margin-bottom: 16px; }
-.job-section-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 2px;
-  margin-bottom: 8px;
-  padding: 6px 10px;
-  background: rgba(201,146,42,0.1);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 4px 4px 0;
-}
-
-.job-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-.job-tag {
-  background: rgba(44,74,30,0.1);
-  border: 1px solid rgba(44,74,30,0.25);
-  color: var(--accent);
-  padding: 4px 10px;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.salary-tag {
-  background: rgba(139,26,26,0.08);
-  border: 1px solid rgba(139,26,26,0.2);
-  color: var(--red);
-  padding: 4px 10px;
-  border-radius: 3px;
-  font-size: 11px;
-}
-
-.search-box {
-  width: 100%;
-  padding: 10px 12px;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid rgba(201,146,42,0.3);
-  border-radius: 4px;
-  font-size: 14px;
-  margin-bottom: 12px;
-}
-
-/* TIPS */
-.tip-card {
-  background: rgba(44,74,30,0.08);
-  border-left: 3px solid var(--accent);
-  padding: 10px 14px;
-  border-radius: 0 4px 4px 0;
-  margin-bottom: 10px;
-  font-size: 13px;
-  color: #1a2e12;
-  line-height: 1.8;
-}
-
-.how-step {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-  align-items: flex-start;
-}
-.step-num {
-  min-width: 26px;
-  height: 26px;
-  background: var(--red);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-.step-text { font-size: 13px; color: #2a1800; line-height: 1.7; }
+:root{--ink:#1a0a00;--gold:#c9922a;--gold-light:#e8b84b;--red:#8b1a1a;--cream:#fdf6e3;--accent:#2c4a1e;--card:rgba(253,246,227,0.98)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:#1a0a00;font-family:'Noto Serif TC',serif;min-height:100vh;background-image:radial-gradient(ellipse at 20% 50%,rgba(139,26,26,.2) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(201,146,42,.12) 0%,transparent 50%)}
+header{text-align:center;padding:20px 16px 14px;border-bottom:1px solid rgba(201,146,42,.3)}
+.header-title{font-family:'Ma Shan Zheng',serif;font-size:24px;color:var(--gold-light);letter-spacing:4px;text-shadow:0 0 20px rgba(201,146,42,.5)}
+.header-sub{font-size:10px;color:rgba(201,146,42,.5);letter-spacing:3px;margin-top:4px}
+.tabs{display:flex;border-bottom:1px solid rgba(201,146,42,.2);background:rgba(0,0,0,.3)}
+.tab{flex:1;padding:12px 4px;text-align:center;font-size:11px;color:rgba(201,146,42,.5);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;letter-spacing:1px}
+.tab.active{color:var(--gold-light);border-bottom-color:var(--gold);background:rgba(201,146,42,.08)}
+.section{display:none;padding:16px}.section.active{display:block}
+.card{background:var(--card);border:1px solid rgba(201,146,42,.35);border-radius:6px;padding:14px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.card-title{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:3px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.card-title::before{content:'';display:block;width:3px;height:13px;background:var(--gold);border-radius:2px}
+label{display:block;font-size:11px;color:#7a5520;margin-bottom:4px;letter-spacing:1px}
+input,select,textarea{width:100%;padding:10px 12px;background:rgba(255,255,255,.8);border:1px solid rgba(201,146,42,.3);border-radius:4px;font-family:'Noto Serif TC',serif;font-size:14px;color:var(--ink);margin-bottom:10px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,146,42,.15)}
+.gender-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.gender-btn{padding:10px;border:1px solid rgba(201,146,42,.3);background:rgba(255,255,255,.5);border-radius:4px;cursor:pointer;font-family:'Noto Serif TC',serif;font-size:14px;color:#6b4c1e;text-align:center;transition:all .2s}
+.gender-btn.active{background:var(--gold);color:white;border-color:var(--gold);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{padding:7px 13px;border:1px solid rgba(201,146,42,.3);background:rgba(255,255,255,.4);border-radius:20px;cursor:pointer;font-size:12px;color:#5a3e1b;transition:all .2s}
+.chip.selected{background:var(--red);color:var(--cream);border-color:var(--red);font-weight:600}
+.chip.green.selected{background:var(--accent);border-color:var(--accent)}
+.chip.blue.selected{background:#1a4a7a;border-color:#1a4a7a;color:white}
+.chip.orange.selected{background:#8b4a10;border-color:#8b4a10;color:white}
+.section-label{font-size:11px;color:#7a5520;letter-spacing:2px;margin-bottom:6px;margin-top:2px}
+.btn-gen{width:100%;padding:14px;background:linear-gradient(135deg,var(--red),#6b1010);color:var(--gold-light);border:1px solid rgba(201,146,42,.4);border-radius:6px;font-family:'Noto Serif TC',serif;font-size:15px;font-weight:700;letter-spacing:4px;cursor:pointer;box-shadow:0 4px 15px rgba(139,26,26,.4);margin-bottom:12px}
+.result-box{background:var(--card);border:1px solid rgba(201,146,42,.35);border-radius:6px;padding:16px;margin-bottom:12px;display:none}
+.result-box.show{display:block}
+.result-text{font-size:13px;line-height:1.9;color:#2a1800;white-space:pre-wrap;margin-bottom:12px;border:1px dashed rgba(201,146,42,.3);padding:12px;border-radius:4px;background:rgba(255,255,255,.5);max-height:220px;overflow-y:auto}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.btn-copy{padding:12px;background:var(--accent);color:var(--cream);border:none;border-radius:4px;font-family:'Noto Serif TC',serif;font-size:13px;cursor:pointer;font-weight:600}
+.btn-claude{padding:12px;background:linear-gradient(135deg,#c9522a,#8b3010);color:white;border:none;border-radius:4px;font-family:'Noto Serif TC',serif;font-size:13px;cursor:pointer;font-weight:600;text-decoration:none;text-align:center;display:block}
+.copied-msg{text-align:center;color:var(--accent);font-size:12px;margin-top:8px;display:none}
+.star-table{width:100%;border-collapse:collapse;font-size:12px}
+.star-table th{background:rgba(201,146,42,.15);color:var(--gold);padding:8px 6px;text-align:left;font-size:11px}
+.star-table td{padding:8px 6px;border-bottom:1px solid rgba(201,146,42,.12);color:#2a1800;vertical-align:top;line-height:1.6}
+.star-table tr:nth-child(even) td{background:rgba(201,146,42,.04)}
+.job-section{margin-bottom:14px}
+.job-section-title{font-size:12px;font-weight:700;color:var(--gold);margin-bottom:6px;padding:5px 10px;background:rgba(201,146,42,.1);border-left:3px solid var(--gold);border-radius:0 4px 4px 0}
+.job-tags{display:flex;flex-wrap:wrap;gap:5px}
+.job-tag{background:rgba(44,74,30,.1);border:1px solid rgba(44,74,30,.25);color:var(--accent);padding:4px 10px;border-radius:3px;font-size:12px;font-weight:600}
+.salary-tag{background:rgba(139,26,26,.08);border:1px solid rgba(139,26,26,.2);color:var(--red);padding:4px 10px;border-radius:3px;font-size:11px}
+.tip-card{background:rgba(44,74,30,.08);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 4px 4px 0;margin-bottom:10px;font-size:13px;color:#1a2e12;line-height:1.8}
+.how-step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.step-num{min-width:26px;height:26px;background:var(--red);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.step-text{font-size:13px;color:#2a1800;line-height:1.7}
 </style>
 </head>
 <body>
-
 <header>
   <div class="header-title">紫微算命師・提詞工具</div>
-  <div class="header-sub">免費版 · FREE EDITION</div>
+  <div class="header-sub">免費版 v2.0 · 含學歷/個性/限制條件</div>
 </header>
 
 <div class="tabs">
-  <div class="tab active" onclick="switchTab('input')">📝 填資料</div>
-  <div class="tab" onclick="switchTab('stars')">⭐ 主星速查</div>
-  <div class="tab" onclick="switchTab('jobs')">💼 缺工職業</div>
-  <div class="tab" onclick="switchTab('how')">❓ 使用說明</div>
+  <div class="tab active" onclick="switchTab('input',this)">📝 填資料</div>
+  <div class="tab" onclick="switchTab('stars',this)">⭐ 主星速查</div>
+  <div class="tab" onclick="switchTab('jobs',this)">💼 缺工職業</div>
+  <div class="tab" onclick="switchTab('how',this)">❓ 說明</div>
 </div>
 
-<!-- TAB 1: 填資料 -->
 <div class="section active" id="tab-input">
-
   <div class="card">
     <div class="card-title">客人基本資料</div>
     <label>姓名（選填）</label>
@@ -389,53 +82,74 @@ input:focus, select:focus, textarea:focus {
     </div>
     <label>職業狀態</label>
     <select id="jobStatus">
-      <option>求職中</option>
-      <option>在職想換工作</option>
-      <option>自行創業</option>
-      <option>待業中</option>
-      <option>學生</option>
-      <option>退休</option>
+      <option>求職中</option><option>在職想換工作</option><option>自行創業</option>
+      <option>待業中</option><option>學生</option><option>退休</option>
     </select>
+  </div>
+
+  <div class="card">
+    <div class="card-title">學歷與個性</div>
+    <div class="section-label">學歷</div>
+    <div class="chips" id="eduChips">
+      <div class="chip blue" onclick="toggleSingle(this,'eduChips')">國中以下</div>
+      <div class="chip blue" onclick="toggleSingle(this,'eduChips')">高中/職</div>
+      <div class="chip blue" onclick="toggleSingle(this,'eduChips')">大學</div>
+      <div class="chip blue" onclick="toggleSingle(this,'eduChips')">研究所以上</div>
+      <div class="chip blue selected" onclick="toggleSingle(this,'eduChips')">不清楚</div>
+    </div>
+    <div class="section-label">個性傾向（可多選）</div>
+    <div class="chips" id="personalityChips">
+      <div class="chip orange" onclick="toggleChip(this)">不愛讀書</div>
+      <div class="chip orange" onclick="toggleChip(this)">愛動手做</div>
+      <div class="chip orange" onclick="toggleChip(this)">愛說話交際</div>
+      <div class="chip orange" onclick="toggleChip(this)">愛幫助別人</div>
+      <div class="chip orange" onclick="toggleChip(this)">有創業心</div>
+      <div class="chip orange" onclick="toggleChip(this)">怕壓力</div>
+      <div class="chip orange" onclick="toggleChip(this)">需要穩定</div>
+      <div class="chip orange" onclick="toggleChip(this)">想在家工作</div>
+    </div>
+    <div class="section-label">限制條件（可多選）</div>
+    <div class="chips" id="limitChips">
+      <div class="chip" onclick="toggleChip(this)">有小孩要顧</div>
+      <div class="chip" onclick="toggleChip(this)">需要顧老人</div>
+      <div class="chip" onclick="toggleChip(this)">體力有限</div>
+      <div class="chip" onclick="toggleChip(this)">不能太晚回家</div>
+      <div class="chip" onclick="toggleChip(this)">沒有交通工具</div>
+      <div class="chip" onclick="toggleChip(this)">沒有本錢</div>
+    </div>
   </div>
 
   <div class="card">
     <div class="card-title">紫微主星（可多選）</div>
     <div class="chips" id="starsChips">
-      <div class="chip" onclick="toggleChip(this,'star')">紫微星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">天機星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">太陽星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">武曲星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">天同星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">廉貞星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">天府星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">太陰星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">貪狼星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">巨門星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">天相星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">天梁星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">七殺星</div>
-      <div class="chip" onclick="toggleChip(this,'star')">破軍星</div>
+      <div class="chip" onclick="toggleChip(this)">紫微星</div><div class="chip" onclick="toggleChip(this)">天機星</div>
+      <div class="chip" onclick="toggleChip(this)">太陽星</div><div class="chip" onclick="toggleChip(this)">武曲星</div>
+      <div class="chip" onclick="toggleChip(this)">天同星</div><div class="chip" onclick="toggleChip(this)">廉貞星</div>
+      <div class="chip" onclick="toggleChip(this)">天府星</div><div class="chip" onclick="toggleChip(this)">太陰星</div>
+      <div class="chip" onclick="toggleChip(this)">貪狼星</div><div class="chip" onclick="toggleChip(this)">巨門星</div>
+      <div class="chip" onclick="toggleChip(this)">天相星</div><div class="chip" onclick="toggleChip(this)">天梁星</div>
+      <div class="chip" onclick="toggleChip(this)">七殺星</div><div class="chip" onclick="toggleChip(this)">破軍星</div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-title">客人煩惱（可多選）</div>
     <div class="chips" id="concernChips">
-      <div class="chip green selected" onclick="toggleChip(this,'concern')">適合職業</div>
-      <div class="chip green" onclick="toggleChip(this,'concern')">薪資行情</div>
-      <div class="chip green" onclick="toggleChip(this,'concern')">轉職時機</div>
-      <div class="chip green" onclick="toggleChip(this,'concern')">創業建議</div>
-      <div class="chip green" onclick="toggleChip(this,'concern')">升遷機會</div>
-      <div class="chip green" onclick="toggleChip(this,'concern')">工作人際</div>
+      <div class="chip green selected" onclick="toggleChip(this)">適合職業</div>
+      <div class="chip green" onclick="toggleChip(this)">薪資行情</div>
+      <div class="chip green" onclick="toggleChip(this)">轉職時機</div>
+      <div class="chip green" onclick="toggleChip(this)">創業建議</div>
+      <div class="chip green" onclick="toggleChip(this)">升遷機會</div>
+      <div class="chip green" onclick="toggleChip(this)">工作人際</div>
     </div>
     <label>補充說明（選填）</label>
-    <textarea id="extra" placeholder="例：最近很迷茫、考慮轉做業務、家裡有小孩..." rows="3"></textarea>
+    <textarea id="extra" placeholder="例：最近很迷茫、考慮轉業務、家裡有小孩..." rows="3"></textarea>
   </div>
 
   <button class="btn-gen" onclick="generate()">✦ 產生AI提問範本 ✦</button>
 
   <div class="result-box" id="resultBox">
-    <div class="card-title">📋 複製此段文字，貼到 Claude 問</div>
+    <div class="card-title">📋 複製此段，貼到 Claude 問</div>
     <div class="result-text" id="resultText"></div>
     <div class="btn-row">
       <button class="btn-copy" onclick="copyText()">📋 複製全部</button>
@@ -443,10 +157,8 @@ input:focus, select:focus, textarea:focus {
     </div>
     <div class="copied-msg" id="copiedMsg">✅ 已複製！去 Claude 貼上吧</div>
   </div>
-
 </div>
 
-<!-- TAB 2: 主星速查 -->
 <div class="section" id="tab-stars">
   <div class="card">
     <div class="card-title">紫微主星・職業傾向速查</div>
@@ -470,272 +182,119 @@ input:focus, select:focus, textarea:focus {
   </div>
 </div>
 
-<!-- TAB 3: 缺工職業 -->
 <div class="section" id="tab-jobs">
-
   <div class="card">
-    <div class="card-title">🔥 台灣2025熱門缺工職業</div>
-
+    <div class="card-title">🔥 台灣熱門缺工職業</div>
     <div class="job-section">
-      <div class="job-section-title">科技 / IT 類</div>
-      <div class="job-tags">
-        <span class="job-tag">軟體工程師</span>
-        <span class="job-tag">AI工程師</span>
-        <span class="job-tag">資安工程師</span>
-        <span class="job-tag">半導體技術員</span>
-        <span class="job-tag">數據分析師</span>
-      </div>
-      <div style="margin-top:6px">
-        <span class="salary-tag">月薪 5-15萬</span>
-        <span class="salary-tag">缺口：數萬人</span>
-      </div>
+      <div class="job-section-title">科技/IT（需學歷或證照）</div>
+      <div class="job-tags"><span class="job-tag">軟體工程師</span><span class="job-tag">AI工程師</span><span class="job-tag">半導體技術員</span><span class="job-tag">數據分析師</span></div>
+      <div style="margin-top:6px"><span class="salary-tag">月薪 5-15萬</span></div>
     </div>
-
     <div class="job-section">
-      <div class="job-section-title">醫療 / 照護類</div>
-      <div class="job-tags">
-        <span class="job-tag">護理師</span>
-        <span class="job-tag">照服員</span>
-        <span class="job-tag">物理治療師</span>
-        <span class="job-tag">居家照護</span>
-        <span class="job-tag">社工</span>
-      </div>
-      <div style="margin-top:6px">
-        <span class="salary-tag">月薪 3.5-7萬</span>
-        <span class="salary-tag">需求持續增加</span>
-      </div>
+      <div class="job-section-title">醫療/照護（部分不需學歷）</div>
+      <div class="job-tags"><span class="job-tag">護理師</span><span class="job-tag">照服員</span><span class="job-tag">居家照護</span><span class="job-tag">社工</span></div>
+      <div style="margin-top:6px"><span class="salary-tag">月薪 3-7萬</span></div>
     </div>
-
     <div class="job-section">
-      <div class="job-section-title">服務 / 餐飲類</div>
-      <div class="job-tags">
-        <span class="job-tag">廚師/廚工</span>
-        <span class="job-tag">外場服務員</span>
-        <span class="job-tag">咖啡師</span>
-        <span class="job-tag">烘焙師</span>
-        <span class="job-tag">飯店業務</span>
-      </div>
-      <div style="margin-top:6px">
-        <span class="salary-tag">月薪 3-5萬</span>
-        <span class="salary-tag">缺口嚴重</span>
-      </div>
+      <div class="job-section-title">服務/餐飲（不需學歷）</div>
+      <div class="job-tags"><span class="job-tag">廚師/廚工</span><span class="job-tag">外場服務員</span><span class="job-tag">咖啡師</span><span class="job-tag">烘焙師</span></div>
+      <div style="margin-top:6px"><span class="salary-tag">月薪 3-5萬</span></div>
     </div>
-
     <div class="job-section">
-      <div class="job-section-title">製造 / 技術類</div>
-      <div class="job-tags">
-        <span class="job-tag">電路板技術員</span>
-        <span class="job-tag">CNC操作員</span>
-        <span class="job-tag">水電工</span>
-        <span class="job-tag">冷凍空調</span>
-        <span class="job-tag">電梯技術員</span>
-      </div>
-      <div style="margin-top:6px">
-        <span class="salary-tag">月薪 4-8萬</span>
-        <span class="salary-tag">老師傅退休潮</span>
-      </div>
+      <div class="job-section-title">製造/技術（不需學歷）</div>
+      <div class="job-tags"><span class="job-tag">CNC操作員</span><span class="job-tag">水電工</span><span class="job-tag">冷凍空調</span><span class="job-tag">科技廠技術員</span></div>
+      <div style="margin-top:6px"><span class="salary-tag">月薪 4-8萬</span></div>
     </div>
-
     <div class="job-section">
-      <div class="job-section-title">物流 / 運輸類</div>
-      <div class="job-tags">
-        <span class="job-tag">物流人員</span>
-        <span class="job-tag">倉儲管理</span>
-        <span class="job-tag">外送員</span>
-        <span class="job-tag">大貨車司機</span>
-        <span class="job-tag">宅配人員</span>
-      </div>
-      <div style="margin-top:6px">
-        <span class="salary-tag">月薪 3.5-6萬</span>
-        <span class="salary-tag">電商帶動需求</span>
-      </div>
+      <div class="job-section-title">業務/行銷（完全不看學歷）</div>
+      <div class="job-tags"><span class="job-tag">業務員</span><span class="job-tag">保險顧問</span><span class="job-tag">房仲</span><span class="job-tag">直播帶貨</span><span class="job-tag">網路賣家</span></div>
+      <div style="margin-top:6px"><span class="salary-tag">月薪 3-20萬（看業績）</span></div>
     </div>
-
     <div class="job-section">
-      <div class="job-section-title">業務 / 行銷類</div>
-      <div class="job-tags">
-        <span class="job-tag">業務員</span>
-        <span class="job-tag">數位行銷</span>
-        <span class="job-tag">直播主/帶貨</span>
-        <span class="job-tag">保險顧問</span>
-        <span class="job-tag">房仲</span>
-      </div>
-      <div style="margin-top:6px">
-        <span class="salary-tag">月薪 3-10萬（含獎金）</span>
-        <span class="salary-tag">無上限收入</span>
-      </div>
+      <div class="job-section-title">物流/外送（不需學歷）</div>
+      <div class="job-tags"><span class="job-tag">外送員</span><span class="job-tag">宅配人員</span><span class="job-tag">倉儲管理</span><span class="job-tag">大貨車司機</span></div>
+      <div style="margin-top:6px"><span class="salary-tag">月薪 3.5-6萬</span></div>
     </div>
-
   </div>
-
   <div class="card">
-    <div class="card-title">👩 適合女性轉職（35-50歲）</div>
-    <div class="job-tags" style="margin-bottom:8px">
-      <span class="job-tag">社區關懷員</span>
-      <span class="job-tag">幼兒園助教</span>
-      <span class="job-tag">居家照護</span>
-      <span class="job-tag">保險業務</span>
-      <span class="job-tag">電商客服</span>
-      <span class="job-tag">網路賣家</span>
-      <span class="job-tag">才藝老師</span>
-      <span class="job-tag">烘焙創業</span>
-    </div>
-    <div class="tip-card">適合有家庭的女性：時間彈性、可兼職、從家裡出發的工作類型</div>
+    <div class="card-title">👩 適合女性（35-55歲）</div>
+    <div class="job-tags" style="margin-bottom:8px"><span class="job-tag">社區關懷員</span><span class="job-tag">居家照護</span><span class="job-tag">保險業務</span><span class="job-tag">電商客服</span><span class="job-tag">才藝老師</span><span class="job-tag">網路賣家</span></div>
+    <div class="tip-card">時間彈性、可兼職、可在家做最適合有家庭的女性</div>
   </div>
-
   <div class="card">
-    <div class="card-title">👨 適合男性轉職（30-50歲）</div>
-    <div class="job-tags" style="margin-bottom:8px">
-      <span class="job-tag">業務主管</span>
-      <span class="job-tag">技術士證照</span>
-      <span class="job-tag">保險顧問</span>
-      <span class="job-tag">房地產</span>
-      <span class="job-tag">餐飲創業</span>
-      <span class="job-tag">貨運司機</span>
-      <span class="job-tag">工地監工</span>
-      <span class="job-tag">設備維修</span>
-    </div>
-    <div class="tip-card">台灣技術人才嚴重不足，有一技之長比學歷更有競爭力</div>
+    <div class="card-title">👨 適合男性（25-50歲・不需學歷）</div>
+    <div class="job-tags" style="margin-bottom:8px"><span class="job-tag">業務員</span><span class="job-tag">水電工</span><span class="job-tag">科技廠技術員</span><span class="job-tag">房仲</span><span class="job-tag">外送員</span><span class="job-tag">餐飲創業</span></div>
+    <div class="tip-card">台灣技術人才嚴重不足，有一技之長比學歷更值錢！</div>
   </div>
-
 </div>
 
-<!-- TAB 4: 使用說明 -->
 <div class="section" id="tab-how">
   <div class="card">
-    <div class="card-title">❓ 怎麼用這個工具？</div>
-
-    <div class="how-step">
-      <div class="step-num">1</div>
-      <div class="step-text">在「填資料」分頁，輸入客人的年齡、性別、命盤主星和煩惱</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">2</div>
-      <div class="step-text">點「產生AI提問範本」，下方會出現一段文字</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">3</div>
-      <div class="step-text">點「複製全部」，再點「開啟 Claude」</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">4</div>
-      <div class="step-text">在 Claude 對話框長按貼上，送出問題</div>
-    </div>
-    <div class="how-step">
-      <div class="step-num">5</div>
-      <div class="step-text">Claude 回答後，你用自己的方式說給客人聽！</div>
-    </div>
-
-    <div class="tip-card" style="margin-top:12px">
-      💡 小技巧：把手機分成左右兩邊——左邊 U 會議視訊，右邊這個工具，或用第二支手機操作
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">⭐ 快速提詞範本</div>
-    <div class="tip-card">複製下面任一段，直接貼到 Claude 問：</div>
-
-    <div style="margin-bottom:10px">
-      <div style="font-size:11px;color:var(--gold);margin-bottom:5px;letter-spacing:2px">🔥 台灣缺工</div>
-      <div class="result-text" style="max-height:80px;font-size:12px">台灣2025年最缺工的10個職業是什麼？請列出職業名稱和月薪範圍，用繁體中文回答。</div>
-      <button class="btn-copy" style="width:100%;padding:8px" onclick="copyDirect('台灣2025年最缺工的10個職業是什麼？請列出職業名稱和月薪範圍，用繁體中文回答。')">複製</button>
-    </div>
-
-    <div style="margin-bottom:10px">
-      <div style="font-size:11px;color:var(--gold);margin-bottom:5px;letter-spacing:2px">👩 女性轉職</div>
-      <div class="result-text" style="max-height:80px;font-size:12px">台灣40歲女性，有小孩，適合什麼轉職方向？請給出5個具體職業和月薪，要時間彈性的工作，用繁體中文。</div>
-      <button class="btn-copy" style="width:100%;padding:8px" onclick="copyDirect('台灣40歲女性，有小孩，適合什麼轉職方向？請給出5個具體職業和月薪，要時間彈性的工作，用繁體中文。')">複製</button>
-    </div>
-
-    <div>
-      <div style="font-size:11px;color:var(--gold);margin-bottom:5px;letter-spacing:2px">💰 薪資行情</div>
-      <div class="result-text" style="max-height:80px;font-size:12px">台灣各行業平均月薪是多少？請列出科技業、服務業、製造業、醫療業的薪資範圍，用繁體中文。</div>
-      <button class="btn-copy" style="width:100%;padding:8px" onclick="copyDirect('台灣各行業平均月薪是多少？請列出科技業、服務業、製造業、醫療業的薪資範圍，用繁體中文。')">複製</button>
-    </div>
+    <div class="card-title">❓ 怎麼用？</div>
+    <div class="how-step"><div class="step-num">1</div><div class="step-text">填入客人資料，特別是學歷、個性、限制條件</div></div>
+    <div class="how-step"><div class="step-num">2</div><div class="step-text">點「產生AI提問範本」</div></div>
+    <div class="how-step"><div class="step-num">3</div><div class="step-text">點「複製全部」→ 點「開啟 Claude」貼上</div></div>
+    <div class="how-step"><div class="step-num">4</div><div class="step-text">Claude 回答後，用你的方式說給客人聽</div></div>
+    <div class="tip-card" style="margin-top:12px">💡 如果客人臨時補充「沒學歷」、「有小孩」，直接在 Claude 追加說明，它會重新調整建議！</div>
   </div>
 </div>
 
 <script>
-let gender = '男';
-
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
-}
-
-function setGender(g) {
-  gender = g;
-  document.getElementById('btnM').classList.toggle('active', g === '男');
-  document.getElementById('btnF').classList.toggle('active', g === '女');
-}
-
-function toggleChip(el, type) {
-  el.classList.toggle('selected');
-}
-
-function getSelected(containerId) {
-  return Array.from(document.querySelectorAll(`#${containerId} .chip.selected`)).map(e => e.textContent);
-}
-
-function generate() {
-  const name = document.getElementById('name').value || '客人';
-  const age = document.getElementById('age').value;
-  const jobStatus = document.getElementById('jobStatus').value;
-  const extra = document.getElementById('extra').value;
-  const stars = getSelected('starsChips');
-  const concerns = getSelected('concernChips');
-
-  if (!age) { alert('請輸入客人年齡'); return; }
-
-  const prompt = `你是一位專業的紫微斗數命理師助理，請幫我分析以下客人的職業運勢並提供建議。
+let gender='男';
+function switchTab(tab,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));el.classList.add('active');document.getElementById('tab-'+tab).classList.add('active')}
+function setGender(g){gender=g;document.getElementById('btnM').classList.toggle('active',g==='男');document.getElementById('btnF').classList.toggle('active',g==='女')}
+function toggleChip(el){el.classList.toggle('selected')}
+function toggleSingle(el,id){document.querySelectorAll('#'+id+' .chip').forEach(c=>c.classList.remove('selected'));el.classList.add('selected')}
+function getSelected(id){return Array.from(document.querySelectorAll('#'+id+' .chip.selected')).map(e=>e.textContent)}
+function generate(){
+  const name=document.getElementById('name').value||'客人';
+  const age=document.getElementById('age').value;
+  const jobStatus=document.getElementById('jobStatus').value;
+  const extra=document.getElementById('extra').value;
+  const edu=getSelected('eduChips');
+  const personality=getSelected('personalityChips');
+  const limits=getSelected('limitChips');
+  const stars=getSelected('starsChips');
+  const concerns=getSelected('concernChips');
+  if(!age){alert('請輸入客人年齡');return}
+  const prompt=`你是一位專業的紫微斗數命理師助理，請幫我分析以下客人的職業運勢並提供實際可行的建議。
 
 【客人資料】
 姓名：${name}
 年齡：${age}歲
 性別：${gender}
+學歷：${edu.length?edu[0]:'不清楚'}
 職業狀態：${jobStatus}
-紫微主星：${stars.length ? stars.join('、') : '未提供'}
-主要煩惱：${concerns.length ? concerns.join('、') : '職業規劃'}
-${extra ? `補充：${extra}` : ''}
+個性傾向：${personality.length?personality.join('、'):'未提供'}
+限制條件：${limits.length?limits.join('、'):'無特別限制'}
+紫微主星：${stars.length?stars.join('、'):'未提供'}
+主要煩惱：${concerns.length?concerns.join('、'):'職業規劃'}
+${extra?'補充說明：'+extra:''}
 
-【請提供以下內容】
-1. 根據主星分析此人的個性與職業傾向（2-3句）
-2. 推薦5個最適合的職業，說明原因
-3. 結合台灣就業市場，這些職業的月薪行情
+【請根據以上條件，特別注意學歷和限制條件，提供以下內容】
+1. 根據主星分析此人個性與職業傾向（2-3句，要實際接地氣）
+2. 推薦5個符合其學歷和限制條件的職業，說明原因（不要推薦需要高學歷的工作）
+3. 這些職業在台灣就業市場的月薪行情
 4. 目前台灣最缺這類人才的行業
-5. 給我（算命師）一段可以直接說給客人聽的話（要有安撫力，讓客人覺得有希望）
+5. 給算命師一段可以直接說給客人聽的話（有安撫力、讓客人覺得有希望、接地氣）
 
-請用繁體中文，條列清楚，讓我可以快速瀏覽後告知客人。`;
-
-  document.getElementById('resultText').textContent = prompt;
+請用繁體中文，條列清楚，實際可行，不要太理想化。`;
+  document.getElementById('resultText').textContent=prompt;
   document.getElementById('resultBox').classList.add('show');
-  document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('resultBox').scrollIntoView({behavior:'smooth'});
 }
-
-function copyText() {
-  const text = document.getElementById('resultText').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    document.getElementById('copiedMsg').style.display = 'block';
-    setTimeout(() => document.getElementById('copiedMsg').style.display = 'none', 3000);
-  }).catch(() => {
-    const el = document.getElementById('resultText');
-    const range = document.createRange();
-    range.selectNodeContents(el);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
+function copyText(){
+  const text=document.getElementById('resultText').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    document.getElementById('copiedMsg').style.display='block';
+    setTimeout(()=>document.getElementById('copiedMsg').style.display='none',3000);
+  }).catch(()=>{
+    const el=document.getElementById('resultText');
+    const range=document.createRange();range.selectNodeContents(el);
+    window.getSelection().removeAllRanges();window.getSelection().addRange(range);
     document.execCommand('copy');
-    document.getElementById('copiedMsg').style.display = 'block';
-    setTimeout(() => document.getElementById('copiedMsg').style.display = 'none', 3000);
-  });
-}
-
-function copyDirect(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    alert('已複製！去 Claude 貼上吧 ✅');
-  }).catch(() => {
-    alert('請手動複製上方文字');
+    document.getElementById('copiedMsg').style.display='block';
+    setTimeout(()=>document.getElementById('copiedMsg').style.display='none',3000);
   });
 }
 </script>
